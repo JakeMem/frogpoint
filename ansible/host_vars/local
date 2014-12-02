@@ -1,0 +1,29 @@
+---
+user: vagrant
+group: vagrant
+
+directories:
+  user: vagrant
+  group: vagrant
+  entries:
+    - /srv/frogpoint
+    - /srv/frogpoint/log
+    - /srv/frogpoint/pids
+
+pyenv:
+  user: vagrant
+  root: /srv/frogpoint/pyenv
+  version: 2.7.8
+
+virtualenv:
+  user: vagrant
+  home: /srv/frogpoint/venv
+
+uwsgi:
+  user: vagrant
+  group: vagrant
+  module: frogpoint
+  virtualenv: /srv/frogpoint/venv
+  touch_reload: /srv/frogpoint/frogpoint.app/app.py
+
+# vim: ft=yaml

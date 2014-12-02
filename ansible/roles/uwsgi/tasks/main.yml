@@ -1,0 +1,15 @@
+---
+- name: Install needed packages
+  sudo: yes
+  apt: name={{ item }} state=present
+  with_items:
+    - uwsgi
+    - uwsgi-plugin-python
+
+- name: Install uWSGI application conf
+  sudo: yes
+  template: src=uwsgi.conf dest=/etc/uwsgi/apps-available/{{ uwsgi.user }}.ini mode=0644
+
+- name: Enable uWSGI application
+  sudo: yes
+  file: src=/etc/uwsgi/apps-available/{{ uwsgi.user }}.ini dest=/etc/uwsgi/apps-available/{{ uwsgi.user }}.ini state=link force=yes

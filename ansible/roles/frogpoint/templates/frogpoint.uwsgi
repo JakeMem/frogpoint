@@ -1,0 +1,11 @@
+[uwsgi]
+uid = frogpoint
+gid = www-data
+virtualenv = /srv/frogpoint/env
+env = FROGPOINT_SETTINGS=/etc/frogpoint/frogpoint_settings.py
+processes = 4
+threads = 2
+module = frogpoint
+callable = app
+master = true
+touch-reload = /etc/frogpoint/frogpoint_settings.py

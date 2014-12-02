@@ -1,0 +1,8 @@
+---
+- name: Build directory structure
+  sudo: yes
+  file: path={{ item }} state=directory owner={{ user }} group={{ group }}
+  with_items:
+    - /srv/webapp
+    - /srv/webapp/log
+    - /srv/webapp/pids

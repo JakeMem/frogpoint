@@ -1,0 +1,71 @@
+---
+- name: Install build dependencies
+  sudo: true
+  apt: name={{ item }} state=present
+  with_items:
+    - make
+    - build-essential
+    - libssl-dev
+    - zlib1g-dev
+    - libbz2-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - wget
+    - curl
+    - llvm
+    - git
+
+- name: Check if pyenv root directory exists
+  sudo: yes
+  sudo_user: "{{ pyenv.user }}"
+  file: path={{ pyenv.root }} state=directory owner={{ pyenv.user }}
+
+- name: Checkout pyenv repository
+  sudo: yes
+  sudo_user: "{{ pyenv.user }}"
+  git: repo=git@github.com:yyuu/pyenv.git dest={{ pyenv.root }} accept_hostkey=true
+
+- name: Add plugin directory (if it doesn't exists)
+  sudo: yes
+  sudo_user: "{{ pyenv.user }}"
+  file: path="{{ pyenv.root }}/plugins" state=directory
+
+- name: Ensure that python-build plugin exists
+  sudo: yes
+  sudo_user: "{{ pyenv.user }}"
+  shell: "cd {{ pyenv.root }}/plugins && git pull"
+  changed_when: False
+
+- name: Add pyenv initialization script
+  sudo: true
+  sudo_user: "{{ pyenv.user }}"
+  template: src=pyenv.sh.j2 dest=/home/{{ pyenv.user }}/.pyenv.sh mode=0755
+
+- name: Ensure that bash_profile exists
+  sudo: true
+  sudo_user: "{{ pyenv.user }}"
+  file: name=/home/{{ pyenv.user }}/.bash_profile state=touch
+  changed_when: false
+
+- name: Add pyenv initialization to profile
+  sudo: true
+  sudo_user: "{{ pyenv.user }}"
+  lineinfile: dest=/home/{{ pyenv.user }}/.bash_profile state=present regexp='pyenv.sh' line='[[ -f $HOME/.pyenv.sh ]] && . $HOME/.pyenv.sh'
+
+- name: Check if python version is installed
+  sudo: yes
+  sudo_user: "{{ pyenv.user }}"
+  stat: path={{ pyenv.root }}/versions/{{ pyenv.version }}
+  register: python_version_installed
+
+- name: Install python
+  sudo: yes
+  sudo_user: "{{ pyenv.user }}"
+  shell: bash -lc "CONFIGURE_OPTS={{ pyenv.configure_opts|default("") }} MAKE_OPTS={{ pyenv.make_opts|default("-j4") }} pyenv install {{ pyenv.version }}"
+  when: python_version_installed.stat.exists == false
+
+- name: Set the installed version as the default one
+  sudo: yes
+  sudo_user: "{{ pyenv.user }}"
+  shell: bash -lc "pyenv global {{ pyenv.version }}"
+  when: python_version_installed.stat.exists == false

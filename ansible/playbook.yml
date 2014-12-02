@@ -1,0 +1,11 @@
+---
+- name: Local VM
+  hosts:
+    - local
+  roles:
+    - directories
+    - nginx
+    - uwsgi
+    - pyenv
+    - virtualenv
+    - frogpoint
