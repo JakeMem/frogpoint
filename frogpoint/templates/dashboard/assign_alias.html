@@ -1,0 +1,50 @@
+{% extends "dashboard/base.html" %}
+
+{% import "macros/forms.html" as forms %}
+
+{% block title %}{{ super() }} | Beacons | Assign Alias{% endblock %}
+
+{% block dashboard_content %}
+<div id="pad-wrapper" class="form-page">
+  <div class="row">
+    <h4>Beacon Details</h4>
+
+    <div class="col-md-5">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th>Alias Name</th>
+            <td>{{ beacon.alias }}</td>
+          </tr>
+
+          <tr>
+            <th>Major</th>
+            <td>{{ beacon.major }}</td>
+          </tr>
+
+          <tr>
+            <th>Minor</th>
+            <td>{{ beacon.minor }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row form-wrapper">
+    <h4>Assign Alias</h4>
+
+    <div class="col-md-5">
+      <form method="post" action="">
+        {{ form.hidden_tag() }}
+
+        {% if form.errors %}<p>Fix the errors bellow</p>{% endif %}
+
+        {{ forms.form_control(form.alias, placehodler="Beacon Alias") }}
+
+        <button class="btn-glow primary login">Save</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

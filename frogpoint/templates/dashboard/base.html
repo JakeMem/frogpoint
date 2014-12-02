@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% import "macros/navbar.html" as nav with context %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  {{ nav.navbar(logo_width=28) }}
+  {{ nav.sidebar() }}
+
+  <div class="content">
+    {% block dashboard_content %}{% endblock %}
+  </div>
+{% endblock %}

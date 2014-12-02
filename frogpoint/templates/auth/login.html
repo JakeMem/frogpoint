@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
+{% import "macros/misc.html" as misc %}
+
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+  <link type="text/css" rel="stylesheet" media="screen" href="{{ url_for("static", filename="css/compiled/signin.css") }}" />
+{% endblock %}
+
+{% block html_class %}login-bg{% endblock %}
+
+{% block content %}
+  <div class="login-wrapper">
+    {{ misc.logo() }}
+
+    <div class="box">
+      <div class="content-wrap">
+        <h6>Admin Panel Log in</h6>
+
+        <form method="post" action="">
+          {{ form.hidden_tag() }}
+
+          {% if form.errors %}<p>Fix the errors bellow</p>{% endif %}
+
+          {{ form.username(class="form-control", placeholder="Username") }}
+          {{ forms.errors(form.username) }}
+
+          {{ form.password(class="form-control", placeholder="Your password") }}
+          {{ forms.errors(form.password) }}
+
+          <div class="remember">
+            {{ form.remember }}
+            {{ form.remember.label }}
+          </div>
+
+          <button class="btn-glow primary login">Log in</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

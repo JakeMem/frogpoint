@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="{% block html_class %}{% endblock %}">
+  <head>
+    <title>FrogPoint | {% block title %}{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/bootstrap/bootstrap.css") }}" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/bootstrap/bootstrap-overrides.css") }}" />
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/compiled/layout.css") }}" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/compiled/elements.css") }}" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/compiled/icons.css") }}" />
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/lib/font-awesome.css") }}" />
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/lib/uniform.default.css") }}" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/lib/select2.css") }}" />
+    <!-- link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/lib/bootstrap.datepicker.css") }}" /-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/lib/bootstrap-datetimepicker.css") }}" />
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/compiled/form-showcase.css") }}" media="screen" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/compiled/tables.css") }}" media="screen" />
+
+    {% block styles %}{% endblock %}
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/frogpoint.css") }}" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="{% block body_class %}{% endblock %}">
+    {% block content %}{% endblock %}
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/wysihtml5-0.3.0.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/moment.min.js") }}"></script>
+    <!-- script src="{{ url_for("static", filename="js/bootstrap.datepicker.js") }}"></script -->
+    <script src="{{ url_for("static", filename="js/bootstrap-datetimepicker.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/jquery.uniform.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/select2.min.js") }}"></script>
+
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

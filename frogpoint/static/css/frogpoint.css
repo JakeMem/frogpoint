@@ -1,0 +1,8 @@
+.login-bg {
+    /* background-image: url('../img/bgs/back-green.jpg'); */
+    background-image: url('../img/bgs/blueish.jpg');
+}
+
+.glyphicon-calendar:before {
+    content: "\e109" !important;
+}

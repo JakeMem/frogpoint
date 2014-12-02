@@ -1,0 +1,44 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %} {{ super() }} | Beacons{% endblock %}
+
+{% block dashboard_content %}
+  <div id="pad-wrapper">
+    <div class="table-wrapper">
+      <div class="row head">
+        <div class="col-md-12">
+          <h4>Beacons</h4>
+        </div>
+      </div>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="col-md-2">Alias Name</th>
+            <th class="col-md-2"><span class="line"></span>Major</th>
+            <th class="col-md-2"><span class="line"></span>Minor</th>
+            <th class="col-md-2"><span class="line"></span>Action</th>
+            <th class="col-md-2"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for beacon in beacons %}
+          <tr{% if loop.first %} class="first"{% endif %}>
+            <td>{{ beacon.alias }}</td>
+            <td>{{ beacon.major }}</td>
+            <td>{{ beacon.minor }}</td>
+            <td>{{ beacon.action }}</td>
+            <td>
+              <ul class="actions">
+                <li><a href="{{ url_for("dashboard.assign_alias", beacon_id=beacon.id) }}">Assign Alias</a></li>
+                <li class="last"><a href="{{ url_for("dashboard.assign_action", beacon_id=beacon.id) }}">Assign Action</a></li>
+              </ul>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

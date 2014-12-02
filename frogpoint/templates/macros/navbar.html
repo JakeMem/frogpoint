@@ -1,0 +1,43 @@
+{% import "macros/misc.html" as misc %}
+
+{% macro navbar(logo_width=170) %}
+  <header class="navbar navbar-inverse" role="banner">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" id="menu-toggler">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      {{ misc.logo(width=logo_width, klass="navbar-brand") }}
+    </div>
+
+    <ul class="nav navbar-nav pull-right hidden-xs">
+      <li><a href="#">{{ current_user.username }}</a></li>
+      <li><a href="{{ url_for("auth.logout") }}" alt="Logout">Logout</a></li>
+    </ul>
+  </header>
+{% endmacro %}
+
+{% macro sidebar() %}
+  <div id="sidebar-nav">
+    <ul id="dashboard-menu">
+      <li>                
+        <a href="/"><i class="icon-home"></i> <span>Home</span></a>
+      </li>            
+
+      <li class="active">
+        <a href="{{ url_for("dashboard.beacons") }}"><i class="icon-bolt"></i> <span>Beacons</span></a>
+      </li>
+
+      <li>
+        <a href="#TODO"><i class="icon-book"></i> <span>Campaigns</span></a>
+      </li>
+
+      <li>
+        <a href="#TODO"><i class="icon-signal"></i> <span>Analytics</span></a>
+      </li>
+    </ul>
+  </div>
+{% endmacro %}

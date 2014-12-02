@@ -1,0 +1,42 @@
+{% macro errors(field) -%}
+  {% if field.errors %}
+    <ul>
+      {% for err in field.errors %}
+        <li>{{ err }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{%- endmacro %}
+
+
+{% macro form_control(form_field, extra_class="", placehodler="") -%}
+  <div class="field-box{% if form_field.errors %} error{% endif %}">
+    {{ form_field.label }}
+
+    <div class="col-md-7">
+      {{ form_field(class="form-control " + extra_class, placeholder=placehodler) }}
+    </div>
+  </div>
+{%- endmacro %}
+
+
+{% macro form_field(form_field, placehodler="") -%}
+  <div class="field-box{% if form_field.errors %} error{% endif %}">
+    {{ form_field.label }}
+
+    <div class="col-md-7">
+      {{ form_field(placeholder=placehodler) }}
+    </div>
+  </div>
+{%- endmacro %}
+
+
+{% macro form_radio(form_field) -%}
+  <div class="field-box{% if form_field.errors %} error{% endif %}">
+    {{ form_field.label }}
+
+    <div class="col-md-9">
+      {{ form_field() }}
+    </div>
+  </div>
+{%- endmacro %}
