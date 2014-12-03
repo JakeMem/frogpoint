@@ -46,10 +46,17 @@
   sudo_user: "{{ pyenv.user }}"
   template: src=pyenvrc.j2 dest=/home/{{ pyenv.user }}/.pyenvrc mode=0755
 
+- name: Check if .bash_profile exists
+  sudo: yes
+  sudo_user: "{{ pyenv.user }}"
+  stat: path=/home/{{ pyenv.user }}/.bash_profile
+  register: bash_profile
+
 - name: Ensure that bash_profile exists
   sudo: true
   sudo_user: "{{ pyenv.user }}"
   file: name=/home/{{ pyenv.user }}/.bash_profile state=touch
+  when: bash_profile.stat.exists == false
   changed_when: false
 
 - name: Add pyenv initialization to profile

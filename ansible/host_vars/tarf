@@ -1,0 +1,47 @@
+---
+directories:
+  user: omab
+  group: omab
+  entries:
+    - /srv/frogpoint
+    - /srv/frogpoint/log
+    - /srv/frogpoint/pids
+
+gitapp:
+  user: omab
+  group: omab
+  name: frogpoint
+  repo: git@github.com:omab/frogpoint.git
+  git_dir: /srv/frogpoint/frogpoint.git
+  app_dir: /srv/frogpoint/frogpoint.app
+  orig_revision: df02c734af5ad25c2f89a2b1138a2db9352f15c5
+
+pyenv:
+  user: omab
+  root: /srv/frogpoint/pyenv
+  version: 2.7.8
+  virtualenv_name: frog
+
+uwsgi:
+  user: omab
+  group: www-data
+  app_name: frogpoint
+  wsgi_file: frogpoint
+  force_cwd: /srv/frogpoint
+  touch_reload: /srv/frogpoint/frogpoint.app/
+  ini_file: /srv/frogpoint/frogpoint.ini
+  pidfile: /srv/frogpoint/pids/frogpoint.pid
+  logfile: /srv/frogpoint/log/frogpoint.log
+  virtualenv: /srv/frogpoint/pyenv/versions/frog
+  socket: 127.0.0.1:3031
+
+frogpoint:
+  user: omab
+  group: omab
+  app_root: /srv/frogpoint
+  app_dir: /srv/frogpoint/frogpoint.app
+  virtualenv: /srv/frogpoint/pyenv/versions/frog
+  domains:
+    - frogpoint.com
+
+# vim: ft=yaml

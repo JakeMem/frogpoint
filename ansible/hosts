@@ -1,6 +1,4 @@
 local ansible_ssh_host=vagrant
-
-[webapp]
-local
+tarf  ansible_ssh_host=tarf
 
 # vim: ft=dosini

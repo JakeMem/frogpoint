@@ -9,3 +9,14 @@
     - pyenv-uwsgi
     - nginx
     - frogpoint
+
+- name: Tarf
+  hosts:
+    - tarf
+  roles:
+    - directories
+    - gitapp
+    - pyenv
+    - pyenv-uwsgi
+    - nginx
+    - frogpoint
