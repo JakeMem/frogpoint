@@ -1,5 +1,0 @@
----
-- name: Install virtualenv
-  sudo: yes
-  sudo_user: {{ virtualenv.user }}
-  pip: name=virtualenv state=present

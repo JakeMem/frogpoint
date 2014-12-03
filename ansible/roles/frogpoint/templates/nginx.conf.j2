@@ -1,11 +1,11 @@
 server {
     listen 80;
 
-{% for domain in http.domains %}
+{% for domain in frogpoint.domains %}
     server_name {{ domain }};
 {% endfor %}
 
-    client_max_body_size 10m;
+    client_max_body_size 1m;
 
     gzip on;
     gzip_http_version 1.0;
@@ -19,7 +19,7 @@ server {
     location ~ ^/static/(.*)$ {
         autoindex on;
         expires max;
-        alias /srv/webapp/forgpoint.app/static/$1;
+        alias /srv/frogpoint/forgpoint.app/static/$1;
     }
 
     location / {

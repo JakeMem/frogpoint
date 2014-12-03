@@ -36,10 +36,15 @@
   shell: "cd {{ pyenv.root }}/plugins && git pull"
   changed_when: False
 
+- name: Install PyEnv-virtualenv plugin
+  sudo: true
+  sudo_user: "{{ pyenv.user }}"
+  git: repo=https://github.com/yyuu/pyenv-virtualenv.git dest={{ pyenv.root }}/plugins/pyenv-virtualenv
+
 - name: Add pyenv initialization script
   sudo: true
   sudo_user: "{{ pyenv.user }}"
-  template: src=pyenv.sh.j2 dest=/home/{{ pyenv.user }}/.pyenv.sh mode=0755
+  template: src=pyenvrc.j2 dest=/home/{{ pyenv.user }}/.pyenvrc mode=0755
 
 - name: Ensure that bash_profile exists
   sudo: true
@@ -50,7 +55,7 @@
 - name: Add pyenv initialization to profile
   sudo: true
   sudo_user: "{{ pyenv.user }}"
-  lineinfile: dest=/home/{{ pyenv.user }}/.bash_profile state=present regexp='pyenv.sh' line='[[ -f $HOME/.pyenv.sh ]] && . $HOME/.pyenv.sh'
+  lineinfile: dest=/home/{{ pyenv.user }}/.bash_profile state=present regexp='.pyenvrc' line='[[ -f $HOME/.pyenvrc ]] && . $HOME/.pyenvrc'
 
 - name: Check if python version is installed
   sudo: yes
@@ -69,3 +74,9 @@
   sudo_user: "{{ pyenv.user }}"
   shell: bash -lc "pyenv global {{ pyenv.version }}"
   when: python_version_installed.stat.exists == false
+
+- name: Create a PyEnv-virtualenv environment
+  sudo: yes
+  sudo_user: "{{ pyenv.user }}"
+  shell: . /home/{{ pyenv.user }}/.pyenvrc && pyenv virtualenv {{ pyenv.version }} {{ pyenv.virtualenv_name }}
+         creates="{{ pyenv.root }}/versions/{{ pyenv.virtualenv_name }}/bin/python"

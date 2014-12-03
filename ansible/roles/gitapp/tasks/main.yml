@@ -1,0 +1,37 @@
+---
+- name: Install git
+  sudo: yes
+  apt: name=git state=present
+
+- name: Check if bare repo already exists
+  sudo: yes
+  sudo_user: "{{ gitapp.user }}"
+  stat: path={{ gitapp.git_dir }}
+  register: repo_checked_out
+
+- name: Check if code repo already checked
+  sudo: yes
+  sudo_user: "{{ gitapp.user }}"
+  stat: path={{ gitapp.app_dir }}
+  register: code_checked_out
+
+- name: Checkout bare repo
+  git: repo={{ gitapp.repo }} dest={{ gitapp.git_dir }} bare=yes accept_hostkey=yes
+  when: repo_checked_out.stat.exists == false
+
+- name: Setup post-receive hook
+  sudo: yes
+  sudo_user: "{{ gitapp.user }}"
+  template: src=post-receive-hook.j2 dest={{ gitapp.git_dir }}/hooks/post-receive mode=0755
+
+- name: Create app directory
+  sudo: yes
+  sudo_user: "{{ gitapp.user }}"
+  file: path={{ gitapp.app_dir }} state=directory owner={{ gitapp.user }} group={{ gitapp.group }}
+  when: code_checked_out.stat.exists == false
+
+- name: Checkout app code
+  sudo: yes
+  sudo_user: "{{ gitapp.user }}"
+  shell: "git --work-tree={{ gitapp.app_dir }} --git-dir={{ gitapp.git_dir }} clean -fd && git --work-tree={{ gitapp.app_dir }} --git-dir={{ gitapp.git_dir }} checkout --force"
+  when: code_checked_out.stat.exists == false

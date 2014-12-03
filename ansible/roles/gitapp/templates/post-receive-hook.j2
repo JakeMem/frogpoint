@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+umask 0022
+
+GIT_DIR={{ gitapp.git_dir }}
+GIT_WORK_TREE={{ gitapp.app_dir }}
+
+# Script gets the revision hashes to update (from and to)
+#   old-revision new-revision branch-ref
+read line
+OLD_REV=`cut -f1 -d' ' <(echo $line)`
+NEW_REV=`cut -f2 -d' ' <(echo $line)`
+
+[[ -d $GIT_WORK_TREE ]] || mkdir $GIT_WORK_TREE
+
+cd $GIT_WORK_TREE
+
+git --work-tree=$GIT_WORK_TREE --git-dir=$GIT_DIR clean -fd
+git --work-tree=$GIT_WORK_TREE --git-dir=$GIT_DIR checkout --force
+
+if [[ "$OLD_REV" = "0000000000000000000000000000000000000000" ]]; then
+    OLD_REV="{{ gitapp.orig_revision }}"
+fi
+
+git log --pretty=format:"%h|%ad|%cn|%s" --date=short $OLD_REV..$NEW_REV | awk -F '|' '{ printf "%s %s %-20s %s\n", $1, $2, $3, $4 }'

@@ -1,0 +1,9 @@
+---
+- name: Nginx conf
+  sudo: yes
+  template: src=nginx.conf.j2 dest=/etc/nginx/conf.d/frogpoint.conf
+
+- name: Python dependencies
+  sudo: yes
+  sudo_user: "{{ frogpoint.user }}"
+  shell: . {{ frogpoint.virtualenv }}/bin/activate && pip install -r {{ frogpoint.app_dir }}/requirements.txt

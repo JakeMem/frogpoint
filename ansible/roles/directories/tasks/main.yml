@@ -2,4 +2,4 @@
 - name: Create needed directories
   sudo: yes
   file: path={{ item }} state=directory owner={{ directories.user }} group={{ directories.group }}
-  with_items: {{ directories.entries }}
+  with_items: directories.entries

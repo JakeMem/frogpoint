@@ -4,8 +4,8 @@
     - local
   roles:
     - directories
+    - gitapp
+    - pyenv
     - nginx
     - uwsgi
-    - pyenv
-    - virtualenv
     - frogpoint

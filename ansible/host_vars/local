@@ -1,7 +1,4 @@
 ---
-user: vagrant
-group: vagrant
-
 directories:
   user: vagrant
   group: vagrant
@@ -10,20 +7,36 @@ directories:
     - /srv/frogpoint/log
     - /srv/frogpoint/pids
 
+gitapp:
+  user: vagrant
+  group: vagrant
+  name: frogpoint
+  repo: git@github.com:omab/frogpoint.git
+  git_dir: /srv/frogpoint/frogpoint.git
+  app_dir: /srv/frogpoint/frogpoint.app
+  orig_revision: df02c734af5ad25c2f89a2b1138a2db9352f15c5
+
 pyenv:
   user: vagrant
   root: /srv/frogpoint/pyenv
   version: 2.7.8
-
-virtualenv:
-  user: vagrant
-  home: /srv/frogpoint/venv
+  virtualenv_name: frog
 
 uwsgi:
   user: vagrant
   group: vagrant
+  app_name: frogpoint
   module: frogpoint
-  virtualenv: /srv/frogpoint/venv
+  virtualenv: /srv/frogpoint/pyenv/versions/frog
   touch_reload: /srv/frogpoint/frogpoint.app/app.py
+
+frogpoint:
+  user: vagrant
+  group: vagrant
+  app_dir: /srv/frogpoint/frogpoint.app
+  virtualenv: /srv/frogpoint/pyenv/versions/frog
+  domains:
+    - frogpoint.com
+
 
 # vim: ft=yaml
