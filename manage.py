@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 
-sys.path.append('frogpoint')
+sys.path.append('..')
 
 from flask_script import Server, Manager, Shell
 from parse_rest.connection import register
