@@ -33,6 +33,7 @@ uwsgi:
   pidfile: /srv/frogpoint/pids/frogpoint.pid
   logfile: /srv/frogpoint/log/frogpoint.log
   virtualenv: /srv/frogpoint/pyenv/versions/frog
+  socket: 127.0.0.1:3031
 
 frogpoint:
   user: vagrant

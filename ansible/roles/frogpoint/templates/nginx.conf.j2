@@ -19,7 +19,7 @@ server {
     location ~ ^/static/(.*)$ {
         autoindex on;
         expires max;
-        alias /srv/frogpoint/forgpoint.app/static/$1;
+        alias {{ frogpoint.app_dir }}/static/$1;
     }
 
     location / {
@@ -37,7 +37,7 @@ server {
         proxy_intercept_errors on;
 
         uwsgi_param UWSGI_SCHEME $scheme;
-        uwsgi_pass unix:/var/run/uwsgi/app/frogpoint/socket;
+        uwsgi_pass {{ uwsgi.socket }};
     }
 }
 
