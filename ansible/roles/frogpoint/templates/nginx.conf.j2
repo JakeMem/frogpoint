@@ -37,7 +37,7 @@ server {
         proxy_intercept_errors on;
 
         uwsgi_param UWSGI_SCHEME $scheme;
-        uwsgi_pass unix:/run/uwsgi/app/frogpoint/socket;
+        uwsgi_pass unix:/var/run/uwsgi/app/frogpoint/socket;
     }
 }
 

@@ -24,7 +24,7 @@ pyenv:
 
 uwsgi:
   user: vagrant
-  group: vagrant
+  group: www-data
   app_name: frogpoint
   module: frogpoint
   virtualenv: /srv/frogpoint/pyenv/versions/frog
