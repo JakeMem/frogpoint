@@ -1,7 +1,22 @@
 ---
-- name: Nginx conf
+- name: Check nginx setup
+  sudo: yes
+  stat: path=/etc/nginx/sites-available
+  register: nginx_setup
+
+- name: Install nginx conf into /etc/nginx/conf.d
   sudo: yes
   template: src=nginx.conf.j2 dest=/etc/nginx/conf.d/frogpoint.conf
+  when: nginx_setup.stat.exists == false
+
+- name: Install nginx conf into /etc/nginx/sites-available
+  sudo: yes
+  template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/frogpoint.conf
+  when: nginx_setup.stat.exists == true
+
+- name: Link nginx conf into /etc/nginx/sites-enabled
+  sudo: yes
+  file: src=/etc/nginx/sites-available/frogpoint.conf dest=/etc/nginx/sites-enabled/frogpoint.conf state=link force=yes
 
 - name: Python dependencies
   sudo: yes

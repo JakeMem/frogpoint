@@ -43,5 +43,7 @@ frogpoint:
   virtualenv: /srv/frogpoint/pyenv/versions/frog
   domains:
     - frogpoint.com
+    - frog.matiasaguirre.com
+    - frog.matiasaguirre.net
 
 # vim: ft=yaml
