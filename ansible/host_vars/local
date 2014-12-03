@@ -27,12 +27,14 @@ uwsgi:
   group: www-data
   app_name: frogpoint
   module: frogpoint
+  pythonpath: /srv/frogpoint/frogpoint
   virtualenv: /srv/frogpoint/pyenv/versions/frog
   touch_reload: /srv/frogpoint/frogpoint.app/app.py
 
 frogpoint:
   user: vagrant
   group: vagrant
+  app_root: /srv/frogpoint
   app_dir: /srv/frogpoint/frogpoint.app
   virtualenv: /srv/frogpoint/pyenv/versions/frog
   domains:

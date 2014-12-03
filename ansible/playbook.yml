@@ -7,5 +7,5 @@
     - gitapp
     - pyenv
     - nginx
-    - uwsgi
     - frogpoint
+    - uwsgi

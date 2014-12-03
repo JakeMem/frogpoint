@@ -7,3 +7,8 @@
   sudo: yes
   sudo_user: "{{ frogpoint.user }}"
   shell: . {{ frogpoint.virtualenv }}/bin/activate && pip install -r {{ frogpoint.app_dir }}/requirements.txt
+
+- name: Link frogpoint module
+  sudo: yes
+  sudo_user: "{{ frogpoint.user }}"
+  file: src={{ frogpoint.app_dir }} dest={{ frogpoint.app_root }}/frogpoint state=link force=yes
