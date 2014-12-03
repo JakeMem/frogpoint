@@ -6,6 +6,6 @@
     - directories
     - gitapp
     - pyenv
+    - pyenv-uwsgi
     - nginx
     - frogpoint
-    - uwsgi

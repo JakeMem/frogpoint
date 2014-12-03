@@ -1,0 +1,16 @@
+---
+- name: Install uWSGI package
+  sudo: yes
+  shell: . {{ uwsgi.virtualenv }}/bin/activate && pip install uwsgi
+
+- name: Install uWSGI application conf
+  sudo: yes
+  template: src=uwsgi.conf dest={{ uwsgi.ini_file }} mode=0644
+
+- name: Install init script
+  sudo: yes
+  template: src=init.sh dest=/etc/init.d/{{ uwsgi.app_name }} mode=0755
+
+- name: Enable init script
+  sudo: yes
+  shell: update-rc.d {{ uwsgi.app_name }} enable

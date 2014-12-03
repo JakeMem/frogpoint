@@ -26,10 +26,13 @@ uwsgi:
   user: vagrant
   group: www-data
   app_name: frogpoint
-  module: frogpoint
-  pythonpath: /srv/frogpoint/frogpoint
+  wsgi_file: frogpoint
+  force_cwd: /srv/frogpoint
+  touch_reload: /srv/frogpoint/frogpoint.app/
+  ini_file: /srv/frogpoint/frogpoint.ini
+  pidfile: /srv/frogpoint/pids/frogpoint.pid
+  logfile: /srv/frogpoint/log/frogpoint.log
   virtualenv: /srv/frogpoint/pyenv/versions/frog
-  touch_reload: /srv/frogpoint/frogpoint.app/app.py
 
 frogpoint:
   user: vagrant
