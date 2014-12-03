@@ -6,7 +6,7 @@ sys.path.append('..')
 from flask_script import Server, Manager, Shell
 from parse_rest.connection import register
 
-from frogpoint.app import app
+from frogpoint import app
 from frogpoint.models import Merchant, Beacon, Coupon
 
 
