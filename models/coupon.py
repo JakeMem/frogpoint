@@ -5,6 +5,9 @@ class coupons(Parse):
     type = ParseField('offerType')
     enabled = ParseField('active', default=False)
 
+    target_demographic = ParseField('targetDemographic', default='all')
+    custom_demographic = ParseField('customDemographic', default='')
+
     # These values are used when type is "message"
     message_text = ParseField('offerDescription', default='')
 
@@ -36,6 +39,13 @@ class coupons(Parse):
         ('url', 'URL'),
         ('timer', 'Timer'),
         ('coupon', 'Voucher'),
+    )
+
+    DEFAULT_TARGET_DEMOGRAPHIC = 'all'
+
+    TARGET_DEMOGRAPHIC_CHOICES = (
+        ('all', 'All'),
+        ('custom', 'Custom'),
     )
 
     TIME_CHOICES = [(val, val) for val in range(5, 65, 5)]

@@ -48,6 +48,7 @@ def assign_action(beacon_id):
         return redirect(url_for('dashboard.beacons'))
     return {
         'beacon': beacon,
+        'target_demographics': form.current_target_demographic(),
         'current_type': form.current_type(),
         'form': form
     }

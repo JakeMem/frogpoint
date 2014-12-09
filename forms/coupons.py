@@ -3,9 +3,10 @@ from wtforms.validators import DataRequired, Length, URL, Optional
 
 from flask_wtf import Form
 
-from .fields import InlineRadioField
+from .fields import InlineRadioField, MultiCheckboxField
 from ..models.beacon import Beacon
 from ..models.coupon import Coupon
+from ..models.custom_demographic import CustomDemographic
 
 
 class CouponForm(Form):
@@ -14,6 +15,14 @@ class CouponForm(Form):
     proximity = InlineRadioField('Proximity', choices=Beacon.PROXIMITY_CHOICES,
                                  coerce=int)
     enabled = BooleanField('Enabled?')
+
+    target_demographic = InlineRadioField('Target Demographic',
+                                choices=Coupon.TARGET_DEMOGRAPHIC_CHOICES)
+
+    custom_gender = MultiCheckboxField('Gender',
+                                choices=CustomDemographic.GENDER_CHOICES)
+    custom_age_range = MultiCheckboxField('Age Ranges',
+                                choices=CustomDemographic.AGE_RANGE_CHOICES)
 
     # type=message
     message_text = StringField('Message', validators=[Length(max=80),
@@ -52,6 +61,14 @@ class CouponForm(Form):
         kwargs['data']['proximity'] = beacon.proximity
         kwargs['data']['type'] = self.coupon.type or Coupon.DEFAULT_TYPE
         kwargs['data']['enabled'] = self.coupon.enabled or False
+        kwargs['data']['target_demographic'] = \
+            self.coupon.target_demographic or 'all'
+
+        if self.coupon.custom_demographic:
+            kwargs['data']['custom_gender'] = \
+                self.coupon.custom_demographic.custom_gender
+            kwargs['data']['custom_age_range'] = \
+                self.coupon.custom_demographic.custom_age_range
 
         if self.coupon.type:
             func_name = 'initial_data_{0}'.format(self.coupon.type)
@@ -62,6 +79,17 @@ class CouponForm(Form):
     def save(self):
         coupon = self.coupon
         coupon.type = self.type.data
+        coupon.target_demographic = self.target_demographic.data
+        if coupon.target_demographic != 'all':
+            custom_demographic = self.coupon.custom_demographic or \
+                                 CustomDemographic()
+            custom_demographic.custom_age_range = self.custom_age_range.data
+            custom_demographic.custom_gender = self.custom_gender.data
+            custom_demographic.save()
+            coupon.custom_demographic = custom_demographic
+        else:
+            coupon.custom_demographic = None
+
         load_data_func = getattr(self, 'save_{0}'.format(self.type.data))
         load_data_func(coupon)
         coupon.save()
@@ -128,3 +156,11 @@ class CouponForm(Form):
             return self.coupon.type
         else:
             return Coupon.DEFAULT_TYPE
+
+    def current_target_demographic(self):
+        if self.is_submitted():
+            return self.target_demographic.data
+        elif self.coupon:
+            return self.coupon.target_demographic
+        else:
+            return Coupon.DEFAULT_TARGET_DEMOGRAPHIC

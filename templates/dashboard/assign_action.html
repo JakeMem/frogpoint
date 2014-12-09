@@ -40,6 +40,12 @@
 
         {% if form.errors %}<p>Fix the errors bellow {{ form.errors }}</p>{% endif %}
 
+        {{ forms.form_field(form.target_demographic) }}
+        <div class="target-demographics{% if target_demographics != "custom" %} hidden{% endif %}" data-target="custom">
+          {{ forms.form_field(form.custom_gender) }}
+          {{ forms.form_field(form.custom_age_range) }}
+        </div>
+
         {{ forms.form_field(form.type) }}
 
         <div class="coupon-type{% if current_type != "message" %} hidden{% endif %}" data-type="message">

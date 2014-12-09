@@ -12,4 +12,10 @@ $(function () {
         $('.coupon-type').addClass('hidden');
         $('[data-type="' + type + '"]').removeClass('hidden');
     });
+
+    $('[name="target_demographic"]').on('change', function (event) {
+        var target = $(this).val();
+        $('.target-demographics').toggleClass('hidden', target == 'all');
+    });
+
 });
