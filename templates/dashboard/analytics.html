@@ -1,0 +1,69 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %} {{ super() }} | Analytics{% endblock %}
+
+{% block dashboard_sidebar %}{{ nav.sidebar("analytics") }}{% endblock %}
+
+{% block dashboard_content %}
+  <div id="pad-wrapper" class="form-page">
+    <div class="form-wrapper">
+      <div class="row head">
+        <div class="col-md-12">
+          <h4>Analytics</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="field-box">
+            <label for="merchant">Merchant</label>
+
+            <div class="col-md-7">
+              <select name="merchant">
+                <option value="all" selected="selected">All</option>
+                {% for m in merchants %}
+                  <option value="{{ m.id }}">{{ m.username }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="field-box">
+            <label for="beacon">Beacon</label>
+            <div class="col-md-7">
+              <select name="beacon">
+                <option value="all" selected="selected">All</option>
+                {% for b in beacons %}
+                  <option value="{{ b.id }}">{{ b.alias or b.id }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="field-box">
+            <label for="filter">Filter</label>
+            <div class="col-md-7">
+              <select name="time">
+                <option value="week" selected="selected">Last 7 days</option>
+                <option value="month">Last 30 days</option>
+                <option value="year">Last year</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <pre id="stats">{{ stats }}</pre>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for("static", filename="js/analytics.js") }}"></script>
+{% endblock %}

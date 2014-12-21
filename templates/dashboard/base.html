@@ -5,7 +5,8 @@
 
 {% block content %}
   {{ nav.navbar(logo_width=28) }}
-  {{ nav.sidebar() }}
+
+  {% block dashboard_sidebar %}{{ nav.sidebar() }}{% endblock %}
 
   <div class="content">
     {% block dashboard_content %}{% endblock %}

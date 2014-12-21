@@ -1,4 +1,5 @@
 from .base import Parse, ParseField
+from .user_statistics import Statistic
 
 
 class Beacons(Parse):
@@ -15,6 +16,10 @@ class Beacons(Parse):
     def action(self):
         if self.coupon:
             return self.coupon.friendly_type()
+
+    @property
+    def statistics(self):
+        return Statistic.Query.filter(beaconObjectID=self)
 
 
 # Make singular class for consistency

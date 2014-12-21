@@ -20,23 +20,23 @@
   </header>
 {% endmacro %}
 
-{% macro sidebar() %}
+{% macro sidebar(active="home") %}
   <div id="sidebar-nav">
     <ul id="dashboard-menu">
-      <li>                
+      <li{% if active == "home" %} class="active"{% endif %}>                
         <a href="/"><i class="icon-home"></i> <span>Home</span></a>
       </li>            
 
-      <li class="active">
+      <li{% if active == "beacons" %} class="active"{% endif %}>
         <a href="{{ url_for("dashboard.beacons") }}"><i class="icon-bolt"></i> <span>Beacons</span></a>
       </li>
 
-      <li>
+      <li{% if active == "campaigns" %} class="active"{% endif %}>
         <a href="#TODO"><i class="icon-book"></i> <span>Campaigns</span></a>
       </li>
 
-      <li>
-        <a href="#TODO"><i class="icon-signal"></i> <span>Analytics</span></a>
+      <li{% if active == "analytics" %} class="active"{% endif %}>
+        <a href="{{ url_for("dashboard.analytics") }}"><i class="icon-signal"></i> <span>Analytics</span></a>
       </li>
     </ul>
   </div>

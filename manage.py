@@ -7,7 +7,8 @@ from flask_script import Server, Manager, Shell
 from parse_rest.connection import register
 
 from frogpoint import app
-from frogpoint.models import Merchant, Beacon, Coupon
+from frogpoint.models import Merchant, Beacon, Coupon, CustomDemographics, \
+                             User, Statistic
 
 
 def shell_context():
@@ -18,6 +19,9 @@ def shell_context():
         'Merchant': Merchant,
         'Beacon': Beacon,
         'Coupon': Coupon,
+        'CustomDemographics': CustomDemographics,
+        'User': User,
+        'Statistic': Statistic
     }
 
 manager = Manager(app)

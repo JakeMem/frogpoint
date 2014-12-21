@@ -4,6 +4,8 @@
 
 {% block title %}{{ super() }} | Beacons | Assign Alias{% endblock %}
 
+{% block dashboard_sidebar %}{{ nav.sidebar("beacons") }}{% endblock %}
+
 {% block dashboard_content %}
 <div id="pad-wrapper" class="form-page">
   <div class="row">

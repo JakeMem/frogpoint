@@ -1,6 +1,7 @@
 from functools import wraps
 
-from flask import render_template
+from flask import g, render_template, abort
+from flask_login import login_required
 
 
 def render_to(tpl):
@@ -15,3 +16,14 @@ def render_to(tpl):
             return out
         return wrapper
     return decorator
+
+
+def admin_required(func):
+    @login_required
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if g.user.is_superuser:
+            return func(*args, **kwargs)
+        else:
+            return abort(401, 'Un-authorized access')
+    return wrapper

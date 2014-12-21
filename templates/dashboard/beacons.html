@@ -2,6 +2,8 @@
 
 {% block title %} {{ super() }} | Beacons{% endblock %}
 
+{% block dashboard_sidebar %}{{ nav.sidebar("beacons") }}{% endblock %}
+
 {% block dashboard_content %}
   <div id="pad-wrapper">
     <div class="table-wrapper">
