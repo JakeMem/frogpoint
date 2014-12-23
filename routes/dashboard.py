@@ -100,15 +100,21 @@ def analytics_beacon_stats(merchant_id, beacon_id):
 
 def stats(beacons):
     # TODO: filter by date
-    grouped = groupby(Statistic.for_beacons(beacons),
-                      lambda s: s.user_gender())
-    by_gender = flatten_group(grouped)
+    beacons_map = {b.id: b for b in beacons}
+    statistics = list(Statistic.for_beacons(beacons))
+
+    by_beacon = flatten_group(groupby(statistics, lambda s: s.beacon.id))
+    by_gender = flatten_group(groupby(statistics, lambda s: s.user_gender()))
     by_age = {gender: flatten_group(groupby(items, lambda s: s.user.age_range))
                 for gender, items in by_gender.items()}
     return {
         'gender': {gender: len(users) for gender, users in by_gender.items()},
         'age': {gender: {age: len(users) for age, users in values.items()}
-                    for gender, values in by_age.items()}
+                    for gender, values in by_age.items()},
+        'interactions': {beacon_id: {
+            'alias': beacons_map[beacon_id].alias or beacon_id,
+            'value': len(stats)
+        } for beacon_id, stats in by_beacon.items()}
     }
 
 

@@ -18,6 +18,7 @@
     <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/lib/select2.css") }}" />
     <!-- link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/lib/bootstrap.datepicker.css") }}" /-->
     <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/lib/bootstrap-datetimepicker.css") }}" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/lib/morris.css") }}" />
 
     <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/compiled/form-showcase.css") }}" media="screen" />
     <link type="text/css" rel="stylesheet" href="{{ url_for("static", filename="css/compiled/tables.css") }}" media="screen" />
@@ -37,6 +38,8 @@
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+
     <script src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
     <script src="{{ url_for("static", filename="js/wysihtml5-0.3.0.js") }}"></script>
     <script src="{{ url_for("static", filename="js/moment.min.js") }}"></script>
@@ -44,6 +47,7 @@
     <script src="{{ url_for("static", filename="js/bootstrap-datetimepicker.min.js") }}"></script>
     <script src="{{ url_for("static", filename="js/jquery.uniform.min.js") }}"></script>
     <script src="{{ url_for("static", filename="js/select2.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/morris.min.js") }}"></script>
 
     {% block scripts %}{% endblock %}
   </body>

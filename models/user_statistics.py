@@ -19,9 +19,18 @@ class userStatistics(Parse):
         except ResourceRequestNotFound:
             return 'unknown'
 
+    def valid(self):
+        try:
+            self.user.gender
+        except ResourceRequestNotFound:
+            return False
+        else:
+            return True
+
     @classmethod
     def for_beacons(cls, beacons):
-        return Statistic.Query.filter(beaconObjectID__in=beacons)
+        return [s for s in Statistic.Query.filter(beaconObjectID__in=beacons)
+                    if s.valid()]
 
 
 Statistic = userStatistics

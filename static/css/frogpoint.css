@@ -6,3 +6,7 @@
 .glyphicon-calendar:before {
     content: "\e109" !important;
 }
+
+.chart-container {
+    height: 250px;
+}

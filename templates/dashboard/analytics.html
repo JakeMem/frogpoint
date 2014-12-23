@@ -56,14 +56,40 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row section">
       <div class="col-md-12">
-        <pre id="stats">{{ stats }}</pre>
+        <h4 class="title">Beacons Interactions: {{ beacons|length }}</h4>
+      </div>
+
+      <div id="gender-split" class="col-md-4 chart">
+        <h5>Gender split</h5>
+        <div class="chart-container"></div>
+      </div>
+
+      <div id="age-split-male" class="col-md-4 chart">
+        <h5>Age split (male)</h5>
+        <div class="chart-container"></div>
+      </div>
+
+      <div id="age-split-female" class="col-md-4 chart">
+        <h5>Age split (female)</h5>
+        <div class="chart-container"></div>
+      </div>
+    </div>
+
+    <div class="row section">
+      <div id="interactions" class="col-md-12 chart">
+        <div class="chart-container"></div>
       </div>
     </div>
   </div>
 {% endblock %}
 
 {% block scripts %}
+  <script type="text/javascript">
+    {% if stats %}
+      var initStats = {{ stats|tojson }};
+    {% endif %}
+  </script>
   <script src="{{ url_for("static", filename="js/analytics.js") }}"></script>
 {% endblock %}
